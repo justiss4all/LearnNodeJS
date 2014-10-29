@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html data-ng-app="TipCalculator">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tip Calculator</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="javascripts/app.js"></script>
+  </head>
+  <body>
+    <div class="container" ng-controller="Main.Controller">
+      <div class="jumbotron">
+        <h1>Tip Calculator</h1>
+        <!-- change goCalculate to not true or true -->
+        <p>
+          <a class="btn btn-primary btn-lg" role="button" ng-click="goCalculate = !goCalculate">Calculate >></a> 
+        </p>
+      </div> 
+      <div ng-show="goCalculate">
+          <div class="col-md-12">
+              <form role="form">
+                <div class="form-group">
+                  <h4>Cost of Meal </h4>
+                  <input class="form-control input-lg" type="text" placeholder="$0.00" ng-model="mealCost">
+                  <h4> Tax Rate </h4>
+                  <input class="form-control input-lg" type="text" placeholder="0.00%" ng-model="taxRate">
+                  <h4> Tip Rate </h4>
+                  <input class="form-control input-lg" type="text" placeholder="0.00%" ng-model="tipRate">
+                </div>
+              </form>
+          </div>
+          <div class="col-md-12">
+            <ul class="list-group">
+              <li class="list-group-item"><h4>Base Cost: {{ mealCost | currency }} </h4></li>
+              <li class="list-group-item"><h4>Taxes: {{ mealCost * taxRate/100 | currency }} </h4></li>
+              <li class="list-group-item"><h4>Subtotal: {{ calculateSubTotal(mealCost,taxRate) | currency }} </h4></li>
+              <li class="list-group-item list-group-item-{{ highlight }}"><h4>Tip: {{ calculateTip(tipRate) | currency }} </h4></li>
+              <li class="list-group-item"><h4>Total: {{ calculateTotal() | currency }} </h4></li>
+            </ul>
+          </div>    
+      </div> 
+    </div>
+  </body>
+</html>
